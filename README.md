@@ -1,8 +1,8 @@
-# Smart-Automated-Powder-Formulation-and-Dosing-System
-The goal of this project is to design and build a compact automated system capable of accurately dispensing and combining three powders with different particle sizes, densities, colors, and flow characteristics
+# Smart-Automated-Powder-Formulation-and-Dosing-System  
+The goal of this project is to design and build a compact automated system capable of accurately dispensing and combining three powders with different particle sizes, densities, colors, and flow characteristics  
 
-# Constraints & Considerations
-Technical: 
+# Constraints & Considerations  
+Technical:   
 •	Solution shall mix 3 colored powders to create a new mixed color  
 •	Resulting mixture color shall be accurate to the desired input  
 •	Solution shall be easy to transport  
