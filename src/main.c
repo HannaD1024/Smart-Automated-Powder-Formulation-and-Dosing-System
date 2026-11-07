@@ -3,12 +3,13 @@
 #include "esp_event.h"
 #include "esp_wifi.h"
 #include "esp_http_server.h"
-#include "led_strip.h"a
+#include "led_strip.h"
 #include "esp_log.h"
 #include "mdns.h"
+#include "nvs_flash.h"
 
-#define WIFI_SSID "325rocker26"
-#define WIFI_PASS "rocker1L7P"
+#define WIFI_SSID "blank"
+#define WIFI_PASS "blank"
 
 
 static led_strip_handle_t strip;
@@ -37,7 +38,6 @@ static void wifi_event_handler(void *arg, esp_event_base_t base,
     if (base == WIFI_EVENT && id == WIFI_EVENT_STA_START) {
         esp_wifi_connect();
     } else if (base == WIFI_EVENT && id == WIFI_EVENT_STA_DISCONNECTED) {
-        ESP_LOGW('TAG', "Disconnected, retrying...");
         esp_wifi_connect();
     } 
 }
@@ -73,7 +73,8 @@ static esp_err_t color_handler(httpd_req_t *req)
 void app_main(void)
 //on esp32 startyp
 {
-    
+    nvs_flash_init();
+
     //rmt device, required for RGB LED
     //gpio port 38, allocates memory for 1 led, 
     led_strip_config_t led_cfg = { .strip_gpio_num = 38, .max_leds = 1 };
@@ -82,9 +83,9 @@ void app_main(void)
 
 
     //wifi configs, default ip: 192.168.4.1
-    ESP_ERROR_CHECK(esp_netif_init());
-    ESP_ERROR_CHECK(esp_event_loop_create_default());
-    ESP_ERROR_CHECK(esp_netif_create_default_wifi_sta()); 
+    esp_netif_init();
+    esp_event_loop_create_default();
+    esp_netif_create_default_wifi_sta(); 
 
     wifi_init_config_t init = WIFI_INIT_CONFIG_DEFAULT();
     ESP_ERROR_CHECK(esp_wifi_init(&init));
